@@ -14,30 +14,57 @@ namespace практическая_6
         static void Main(string[] args)
         {
             int rose, tulips, difference;
-            Console.Clear(); //очистка консоли
-            Console.BackgroundColor = ConsoleColor.Cyan; //заливка шрифта
-            Console.ForegroundColor = ConsoleColor.DarkBlue; //текст шрифта
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("Практическая работа № 5");
             Console.Write("Введите два цветка: \n");
-            Console.Write("rose = ");
-            rose = Convert.ToInt32(Console.ReadLine());
-            Console.Write("tulips =");
-            tulips = Convert.ToInt32(Console.ReadLine());
-
-            rose = rose * 4 * 250;
-            tulips = tulips * 4 * 120;
-
-            switch (rose > tulips)
+            Console.Write("розы = ");
+            try
             {
-                case true:
-                difference = rose - tulips;
-                Console.WriteLine($"У первой цветочницы выручка больше на : {difference} руб ");
-                    break;
-            
-                case false:
-                difference = tulips - rose;
-                Console.WriteLine($"У второй цветочницы выручка больше на : {difference} руб ");
-                    break;
+                rose = Convert.ToInt32(Console.ReadLine());
+                Console.Write("тюльпаны = ");
+                tulips = Convert.ToInt32(Console.ReadLine());
+
+                rose = rose * 4 * 250;
+                tulips = tulips * 4 * 120;
+
+                switch (rose > tulips)
+                {
+                    case true:
+                        difference = rose - tulips;
+                        Console.WriteLine($"У первой цветочницы выручка больше на : {difference} руб ");
+                        break;
+
+                    case false:
+                        switch (rose < tulips)
+                        {
+                            case true:
+                                difference = tulips - rose;
+                                Console.WriteLine($"У двух цветочниц одинаковая выручка {difference} руб ");
+                                break;
+                            case false:
+                                difference = tulips = rose;
+                                Console.WriteLine($"У двух цветочниц одинаковая выручка {difference} руб ");
+                                break;
+                        }
+                        break;
+                }
+            }
+            catch (FormatException fex) //не дает ввести букву
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"ошибка: {fex.Message}");
+            }
+            catch (OverflowException oex) //не дает ввести большое число
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"ошибка: {oex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"ошибка: {ex.Message}");
             }
             Console.ReadKey();
         }
